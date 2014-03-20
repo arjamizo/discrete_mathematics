@@ -6,6 +6,10 @@
 
 using namespace std;
 
+/***
+* Each object is different math function implementation.
+***/
+
 struct Unary : unary_function<float, float> {
     virtual const char* getName()=0;
     virtual float operator()(float f)=0;
@@ -134,31 +138,48 @@ struct CPPModX: public Unary {
     }
 };
 
-
-
+#define N 100
+struct Operations {
+    const char* getDesc() {
+        return "Klasa ta gwarantuje, ze zostana usuniete wszystkie implementacje funkcji matematycznych (dzieki wykorzystaniu destruktora).";
+    }
+    Unary *operations[N];
+    Operations() {
+        Unary *operations[N]={
+              new FloorHalf()
+            , new FloorSubstracting()
+            , new CeilHalf()
+            , new MentisMinusInt()
+            , new MentisMinus1()
+            , (new CPPModX)->setY(8)
+            , (new MyModXCPP)->setY(8)
+            , (new MyModXPython)->setY(8)
+            , (new CPPModX)->setY(3)
+            , (new MyModXCPP)->setY(3)
+            , (new MyModXPython)->setY(3)
+            , (new CPPModX)->setY(2)
+            , (new MyModXCPP)->setY(2)
+            , (new MyModXPython)->setY(2)
+            , 0
+        };
+        for(int i=0; i<N; ++i)
+            this->operations[i]=operations[i];
+    }
+    Unary *operator[](int i) {
+        return operations[i];
+    }
+    ~Operations() {
+        for(int i=0; this->operations[i]!=NULL; ++i)
+            delete this->operations[i];
+    }
+};
 
 int main()
 {
     float input[]={-.25f, .1f, .33f, 45.0f, 99.0f, -99.0f, -12.0f, -1.6f, -1.45f};
     int inlen=8;
     int oplen=100;
-    Unary *operations[100]={
-          new FloorHalf()
-        , new FloorSubstracting()
-        , new CeilHalf()
-        , new MentisMinusInt()
-        , new MentisMinus1()
-        , (new CPPModX)->setY(8)
-        , (new MyModXCPP)->setY(8)
-        , (new MyModXPython)->setY(8)
-        , (new CPPModX)->setY(3)
-        , (new MyModXCPP)->setY(3)
-        , (new MyModXPython)->setY(3)
-        , (new CPPModX)->setY(2)
-        , (new MyModXCPP)->setY(2)
-        , (new MyModXPython)->setY(2)
-        , 0
-    };
+    Operations operations;
     //cout<<"elo "<<FloorHalf().operator()(4.0f)<<endl;
     stringstream cout;
     for(int i=-1; i<oplen; ++i) {
