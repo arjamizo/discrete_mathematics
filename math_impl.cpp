@@ -17,10 +17,13 @@ struct Unary : unary_function<float, float> {
 
 struct FloorHalf : public Unary {
     const char* getName() {
-        return "Zaokr w dol: rzutowanie na inta";
+        return "Zaokr w dol.: rzutowanie na inta";
     }
     float operator() (float f) {
-        return (int)(f);
+        if(f>0)
+            return (int)(f);
+        else if(f<0)
+            return (int)(f-.5f);
     }
 };
 struct FloorSubstracting : public Unary {
@@ -34,7 +37,10 @@ struct FloorSubstracting : public Unary {
         else if (f<0)
             while (f<=-1.0f) f+=1.0f;
         cout<<a<<"-"<<f<<"="<<(a-f)<<endl;
-        return a-f;
+        if(f>=0)
+            return a-f;
+        else if(f<0)
+            return a-f-1;
     }
 };
 struct CeilHalf : public Unary {
@@ -48,7 +54,7 @@ struct CeilHalf : public Unary {
 
 struct MentisMinusInt : public Unary {
     const char* getName() {
-        return "Mantysa: odjecie liczby rzutowanej na int";
+        return "Mantysa: odjecie liczby rzutowanej na int - terminologia matematyczna";
     }
     float operator() (float f) {
         return f-(int)f;
@@ -203,6 +209,5 @@ int main()
         if(operations[i+1]==0) break;
     }
     std::cout<<cout.str();
-    std::cout << "Hello world!" << endl;
     return 0;
 }
