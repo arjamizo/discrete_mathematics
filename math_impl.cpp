@@ -36,7 +36,6 @@ struct FloorSubstracting : public Unary {
             while (f>=1.0f) f-=1.0f;
         else if (f<0)
             while (f<=-1.0f) f+=1.0f;
-        cout<<a<<"-"<<f<<"="<<(a-f)<<endl;
         if(f>=0)
             return a-f;
         else if(f<0)
@@ -188,6 +187,7 @@ int main()
     Operations operations;
     //cout<<"elo "<<FloorHalf().operator()(4.0f)<<endl;
     stringstream cout;
+    cout<<"In every row one can find particular implementation (except first one). In first row are example data passed as parameters to all implementations."<<endl;
     for(int i=-1; i<oplen; ++i) {
         for(int j=0; j<=inlen; ++j) {
             cout<<fixed<<setprecision(2)<<setw(7);
