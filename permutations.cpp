@@ -66,14 +66,21 @@ void testFinding() {
 int main(int argc, char *argv[]) {
     helper_in_understanding_adjacent();
     testFinding();
-    int i=0;
     cerr<<"How many numbers should be permutated?"<<endl;
-    int n;
+    int n=7;
     cin>>n;
     Permutations perm(0,n);
+    stringstream ss;
+    int i=0;
     do {
-        cout<<perm;
+        ss<<perm;
         i++;
+        if(i%2000==0){
+            cout<<ss.str();
+            ss.str("");
+            ss.clear();
+        }
     } while (perm.next());
+    cout<<ss.str();
     cout<<"there were "<<i<<" permutations"<<endl;
 }
